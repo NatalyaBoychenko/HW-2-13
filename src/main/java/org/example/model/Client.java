@@ -1,13 +1,14 @@
 package org.example.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,4 +21,9 @@ public class Client {
 
     @Length(min=3, max=200)
     private String name;
+
+    @Column(nullable = false)
+    @ToString.Exclude
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private List<Ticket> tickets = new ArrayList<>();
 }

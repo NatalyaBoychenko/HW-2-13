@@ -1,9 +1,6 @@
 package org.example.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
 
@@ -14,11 +11,18 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    private Long clientId;
+    @ManyToOne()
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
 
-    private String fromPlanetId;
+    @ManyToOne()
+    @JoinColumn(name = "from_planet_id", nullable = false)
+    private Planet fromPlanetId;
 
-    private String toPlanetId;
+    @ManyToOne()
+    @JoinColumn(name = "to_planet_id", nullable = false)
+    private Planet toPlanetId;
 }
